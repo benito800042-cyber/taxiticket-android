@@ -1,13 +1,10 @@
 name: Build TaxiTicket APK
-
 on:
   workflow_dispatch:
   push:
     branches: [ main ]
-
 permissions:
-  contents: read
-
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,4 +31,14 @@ jobs:
         with:
           name: TaxiTicket-app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+      - name: Publish public release APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: TaxiTicket APK (latest)
+          make_latest: true
+          prerelease: false
+          body: Public download of the latest TaxiTicket debug APK.
+          files: app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

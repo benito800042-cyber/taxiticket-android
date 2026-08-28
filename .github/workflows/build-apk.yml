@@ -1,10 +1,13 @@
 name: Build TaxiTicket APK
+
 on:
   workflow_dispatch:
   push:
     branches: [ main ]
+
 permissions:
   contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,19 +29,16 @@ jobs:
           gradle-version: '8.7'
       - name: Build debug APK
         run: gradle --no-daemon :app:assembleDebug
-      - name: Upload app-debug.apk
+      - name: Upload app-debug.apk artifact
         uses: actions/upload-artifact@v4
         with:
           name: TaxiTicket-app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
-      - name: Publish public release APK
+          if-no-files-found: error
+      - name: Publish public GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest
-          name: TaxiTicket APK (latest)
-          make_latest: true
-          prerelease: false
-          body: Public download of the latest TaxiTicket debug APK.
+          tag_name: taxiticket-v0.1.${{ github.run_number }}
+          name: TaxiTicket v0.1.${{ github.run_number }}
+          generate_release_notes: true
           files: app/build/outputs/apk/debug/app-debug.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

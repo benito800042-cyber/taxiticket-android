@@ -4,4 +4,9 @@ android { namespace 'com.taxiticket.app'; compileSdk 35
     defaultConfig { applicationId 'com.taxiticket.app'; minSdk 23; targetSdk 35; versionCode 1; versionName '0.1-test' }
 }
 
-dependencies { implementation 'androidx.core:core:1.13.1' }
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+    // Bundled Latin model: OCR runs on-device and does not require INTERNET or uploads.
+    implementation 'com.google.mlkit:text-recognition:16.0.1'
+    implementation 'com.google.mlkit:text-recognition-latin:16.0.1'
+}

@@ -4,6 +4,13 @@ android { namespace 'com.taxiticket.app'; compileSdk 35
     defaultConfig { applicationId 'com.taxiticket.app'; minSdk 23; targetSdk 35; versionCode 1; versionName '0.1-ocr' }
 }
 
+// Some ML Kit transitive dependencies still request the legacy split Kotlin JDK jars.
+// Exclude them so Gradle keeps the unified kotlin-stdlib without duplicate classes.
+configurations.all {
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+}
+
 dependencies {
     implementation 'androidx.core:core:1.13.1'
     // Bundled Latin model: OCR runs on-device and does not require INTERNET or uploads.

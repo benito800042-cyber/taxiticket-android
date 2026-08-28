@@ -1,7 +1,7 @@
 plugins { id 'com.android.application' }
 
 android { namespace 'com.taxiticket.app'; compileSdk 35
-    defaultConfig { applicationId 'com.taxiticket.app'; minSdk 23; targetSdk 35; versionCode 1; versionName '0.1-ocr' }
+    defaultConfig { applicationId 'com.taxiticket.app'; minSdk 23; targetSdk 35; versionCode 2; versionName '0.2-ocr' }
 }
 
 // Some ML Kit transitive dependencies still request the legacy split Kotlin JDK jars.
